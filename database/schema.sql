@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS users (
                 user_id INTEGER PRIMARY KEY,
                 username TEXT,
-                points INTEGER DEFAULT 10000,
+                points INTEGER DEFAULT 3000,
                 level INTEGER DEFAULT 1,
                 exp INTEGER DEFAULT 0,
                 health INTEGER DEFAULT 100,
