@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from Bot.modules.flood_control import check_flood
 from Bot.modules.leveling import level_up
-from Bot.shop import get_shop_page, handle_purchase
+from Bot.modules.shop import get_shop_page, handle_purchase
 from database.db_manager import create_db, add_user, ensure_user_exists, get_user, update_points, update_level, update_health, connect_db
 
 create_db()  # Ensure the table is created if it doesn't exist
