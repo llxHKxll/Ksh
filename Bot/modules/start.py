@@ -3,6 +3,8 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from database.db_manager import create_db, add_user, ensure_user_exists, get_user, update_points, update_level, update_health, connect_db
 
+create_db()  # Ensure the table is created if it doesn't exist
+
 @app.on_message(filters.command("start"))
 def start_handler(client, message):
     user_id = message.from_user.id
