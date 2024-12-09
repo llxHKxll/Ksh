@@ -4,5 +4,4 @@ pyrogram
 python-telegram-bot==20.1
 tgcrypto
 apscheduler
-cryptg
-regex==2023.6.3
+urllib3
