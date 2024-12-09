@@ -4,8 +4,8 @@ from pyrogram import Client, filters  # For Pyrogram client and filters
 from pyrogram.types import Message  # For working with Telegram messages
 from config import app
 from Bot.modules.flood_control import check_flood
-# Assuming database utility functions are implemented in a separate module
-from database.db_manager import get_user, level_up  
+from Bot.modules.leveling import level_up
+from database.db_manager import get_user  
 
 @app.on_message(filters.command("profile"))
 async def profile_handler(client, message):
