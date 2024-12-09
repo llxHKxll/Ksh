@@ -53,13 +53,15 @@ def run_flask():
 # Run the bot (for Pyrogram)
 async def run_bot():
     """Run the Telegram bot."""
-    await app.run()  # Using `run()` for Pyrogram Client
+    await app.start()  # Using `start()` for Pyrogram Client
 
 # Entry point
 if __name__ == "__main__":
     # Start Flask server in a separate thread
     Thread(target=run_flask).start()
 
-    # Run the bot asynchronously
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(run_bot())
+    # Ensure the bot runs in the already running event loop
+    asyncio.create_task(run_bot())  # Run the bot as a background task
+
+    # Wait for all tasks to complete (this keeps the event loop alive)
+    asyncio.get_event_loop().run_forever()
