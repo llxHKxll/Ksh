@@ -4,7 +4,10 @@ import asyncio
 import logging
 import importlib.util
 import urllib3
+import os
 from pathlib import Path
+from threading import Thread
+from flask import Flask
 from config import app  # Assuming `app` is a Pyrogram Client instance
 
 # Set up logging
@@ -35,10 +38,28 @@ for file in files:
 
 print("Bot Deployed Successfully!")
 
+# Flask app to satisfy Render's port binding requirement
+flask_app = Flask(__name__)
+
+@flask_app.route("/")
+def home():
+    return "Bot is running!"
+
+def run_flask():
+    """Run the Flask server on the assigned Render port."""
+    port = int(os.environ.get("PORT", 5000))  # Render provides the PORT environment variable
+    flask_app.run(host="0.0.0.0", port=port)
+
 # Run the bot (for Pyrogram)
-async def main():
+async def run_bot():
+    """Run the Telegram bot."""
     await app.run()  # Using `run()` for Pyrogram Client
 
-# Run the asynchronous event loop
-loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
+# Entry point
+if __name__ == "__main__":
+    # Start Flask server in a separate thread
+    Thread(target=run_flask).start()
+
+    # Run the bot asynchronously
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(run_bot())
