@@ -24,7 +24,7 @@ def create_db():
             CREATE TABLE IF NOT EXISTS users (
                 user_id INTEGER PRIMARY KEY,
                 username TEXT,
-                points INTEGER DEFAULT 10000,
+                points INTEGER DEFAULT 3000,
                 level INTEGER DEFAULT 1,
                 exp INTEGER DEFAULT 0,
                 health INTEGER DEFAULT 100,
@@ -45,7 +45,7 @@ def add_user(user_id, username=None):
             INSERT OR IGNORE INTO users (user_id, username, points, level, exp, health, last_activity_time, last_claimed, chat_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
-            (user_id, username or "Unknown", 10000, 1, 0, 100, 0, 0, chat_id)  # Add last_claimed as 0
+            (user_id, username or "Unknown", 3000, 1, 0, 100, 0, 0, chat_id)  # Add last_claimed as 0
         )
         conn.commit()
         print(f"Added user: {user_id}, {username}")  # Debugging line
