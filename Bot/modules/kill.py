@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 import random  # For generating random success/fail chance and damage/rewards
 from pyrogram.types import Message  # For working with messages
-
+from config import app
 from database.db_manager import get_user, update_health, update_points  # Replace 'your_database_module' with the actual module name
 
 @app.on_message(filters.command("kill"))
