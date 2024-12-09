@@ -5,6 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from Bot.modules.flood_control import check_flood
 from Bot.modules.leveling import level_up
+from Bot.shop import get_shop_page, handle_purchase
 from database.db_manager import create_db, add_user, ensure_user_exists, get_user, update_points, update_level, update_health, connect_db
 
 create_db()  # Ensure the table is created if it doesn't exist
@@ -133,3 +134,25 @@ async def handle_message(client, message):
     else:
         # Increment experience and level based on the message content
         level_up(user_id, message.text)
+
+@app.on_message(filters.command("shop"))
+def shop_handler(client, message):
+    """Handle the /shop command to display the shop."""
+    page_number = 1  # Default to the first page
+    shop_text, reply_markup = get_shop_page(page_number)
+    message.reply_text(shop_text, reply_markup=reply_markup)
+
+@app.on_callback_query(filters.regex(r"shop_page_\d+"))
+def shop_page_handler(client, callback_query):
+    """Handle navigation between shop pages."""
+    page_number = int(callback_query.data.split("_")[-1])
+    shop_text, reply_markup = get_shop_page(page_number)
+    callback_query.message.edit_text(shop_text, reply_markup=reply_markup)
+
+@app.on_callback_query(filters.regex(r"buy_\d+"))
+def shop_purchase_handler(client, callback_query):
+    """Handle purchases from the shop."""
+    user_id = callback_query.from_user.id
+    item_id = int(callback_query.data.split("_")[-1])
+    response = handle_purchase(user_id, item_id)
+    callback_query.answer(response, show_alert=True)
