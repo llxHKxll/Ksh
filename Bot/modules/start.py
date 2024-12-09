@@ -88,7 +88,7 @@ async def profile_handler(client, message):
         **{user_link}'s Profile:**
 💎 **Level** : {level}
 🎮 **Exp** : {exp}/{level * 100}
-💰 **Points** : {points}
+💰 **Coins** : {points:,}
 ❤️ **Health** : {health}%
         
 🕛 **Last Checkin** : {last_activity}
