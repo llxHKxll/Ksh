@@ -4,6 +4,13 @@ from datetime import datetime
 from config import app
 from database.db_manager import get_user, update_points
 
+@app.on_message(filters.command("daily"))
+def daily_handler(client, message):
+    """Handle the /daily command to give daily rewards."""
+    user_id = message.from_user.id
+    response = claim_daily_reward(user_id)
+    message.reply_text(response)
+
 def can_claim_daily(user_id):
     """Check if the user can claim the daily reward."""
     user_data = get_user(user_id)
@@ -46,10 +53,3 @@ def update_last_claimed(user_id, timestamp):
             (timestamp, user_id),
         )
         conn.commit()
-
-@app.on_message(filters.command("daily"))
-def daily_handler(client, message):
-    """Handle the /daily command to give daily rewards."""
-    user_id = message.from_user.id
-    response = claim_daily_reward(user_id)
-    message.reply_text(response)
