@@ -5,11 +5,7 @@ from pyrogram.types import Message  # For working with Telegram messages
 from config import app
 
 # Assuming database utility functions are implemented in a separate module
-from your_database_module import (
-    get_user,  # To fetch user data from the database
-    check_flood,  # To handle flood control
-    level_up  # To handle leveling up based on activity
-)
+from database.db_manager import get_user, check_flood, level_up  
 
 @app.on_message(filters.command("profile"))
 async def profile_handler(client, message):
