@@ -1,6 +1,7 @@
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from database.db_manager import get_user, update_points, update_health, connect_db
 import time
+from config import app
 
 # Admin user ID (replace this with the actual admin ID)
 BOT_ADMIN_ID = 6329058409
