@@ -36,7 +36,7 @@ print("Bot Deployed Successfully !")
 
 
 async def main():
-    await Sv.run_until_disconnected()
+    await app.run_until_disconnected()
 
 
 loop = asyncio.get_event_loop()
