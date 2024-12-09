@@ -1,7 +1,7 @@
 from config import app
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from database.db_manager import ensure_user_exists  # To check if the user exists in the database
+from database.db_manager import ensure_user_exists, create_db # To check if the user exists in the database
 
 @app.on_message(filters.command("start"))
 def start_handler(client, message):
