@@ -5,7 +5,7 @@ from pyrogram.types import Message  # For working with Telegram messages
 from config import app
 from Bot.modules.flood_control import check_flood
 from Bot.modules.leveling import level_up
-from database.db_manager import get_user  
+from database.db_manager import create_db, add_user, ensure_user_exists, get_user, update_points, update_level, update_health, connect_db
 
 @app.on_message(filters.command("profile"))
 async def profile_handler(client, message):
