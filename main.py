@@ -5,8 +5,7 @@ import logging
 import importlib.util
 import urllib3
 from pathlib import Path
-from config import app
-
+from config import app  # Assuming `app` is a Pyrogram Client instance
 
 # Set up logging
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s', level=logging.WARNING)
@@ -36,9 +35,9 @@ for file in files:
 
 print("Bot Deployed Successfully!")
 
-# Asynchronous function to run the bot
+# Run the bot (for Pyrogram)
 async def main():
-    await app.run_until_disconnected()
+    await app.run()  # Using `run()` for Pyrogram Client
 
 # Run the asynchronous event loop
 loop = asyncio.get_event_loop()
