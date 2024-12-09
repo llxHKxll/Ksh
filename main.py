@@ -60,8 +60,15 @@ if __name__ == "__main__":
     # Start Flask server in a separate thread
     Thread(target=run_flask).start()
 
-    # Ensure the bot runs in the already running event loop
-    asyncio.create_task(run_bot())  # Run the bot as a background task
+    # Ensure there's an event loop available for asyncio tasks
+    try:
+        loop = asyncio.get_event_loop()  # Try to get the running event loop
+    except RuntimeError:  # No event loop is running
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+    # Run the bot asynchronously
+    loop.create_task(run_bot())  # Run the bot as a background task
 
     # Wait for all tasks to complete (this keeps the event loop alive)
-    asyncio.get_event_loop().run_forever()
+    loop.run_forever()
