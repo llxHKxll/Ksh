@@ -1,6 +1,6 @@
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from database.db_manager import get_user, update_points, update_health, connect_db
-from pyrogram important Client, filters
+from pyrogram import Client, filters
 import time
 from config import app
 
